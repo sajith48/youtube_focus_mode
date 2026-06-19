@@ -1,0 +1,98 @@
+/* ===================================================================
+   YouTube Focus Mode - Instant CSS pre-filter
+   --------------------------------------------------------------
+   Every hiding rule below is scoped under html[data-yfm-mode="on"].
+   content.js sets this attribute on <html> based on the ON/OFF
+   toggle stored in chrome.storage.local.
+
+   This makes the <html> attribute a single master switch:
+     - mode = "on"  -> all rules below are active (Focus Mode behaves
+                       exactly as before).
+     - mode = "off" -> NONE of these selectors match anymore, so
+                       every previously hidden element (Shorts shelf,
+                       filtered video cards, sidebar entry) reappears
+                       instantly, with zero JS DOM manipulation.
+   =================================================================== */
+
+/* Shorts shelf on the home feed / subscriptions feed */
+html[data-yfm-mode="on"] ytd-reel-shelf-renderer,
+html[data-yfm-mode="on"] ytd-rich-shelf-renderer[is-shorts],
+html[data-yfm-mode="on"] ytd-reel-item-renderer {
+  display: none !important;
+}
+
+/* Any feed item / grid item / compact item that links to /shorts/ */
+html[data-yfm-mode="on"] ytd-rich-item-renderer:has(a[href^="/shorts/"]),
+html[data-yfm-mode="on"] ytd-video-renderer:has(a[href^="/shorts/"]),
+html[data-yfm-mode="on"] ytd-grid-video-renderer:has(a[href^="/shorts/"]),
+html[data-yfm-mode="on"] ytd-compact-video-renderer:has(a[href^="/shorts/"]) {
+  display: none !important;
+}
+
+/* "Shorts" entry in the left sidebar guide */
+html[data-yfm-mode="on"] ytd-guide-entry-renderer:has(a[title="Shorts"]),
+html[data-yfm-mode="on"] ytd-mini-guide-entry-renderer:has(a[aria-label="Shorts"]) {
+  display: none !important;
+}
+
+/* Elements marked hidden by content.js (educational filter / shorts cards) */
+html[data-yfm-mode="on"] [data-yfm-hidden="true"] {
+  display: none !important;
+}
+
+/* ===================================================================
+   Hide Recommendations
+   --------------------------------------------------------------
+   Scoped under html[data-yfm-mode="on"] - the same single master
+   switch as every rule above - so OFF instantly restores
+   recommendations everywhere with zero JS DOM work. content.js's only
+   job for this feature is keeping html[data-yfm-page="..."] in sync
+   with location.pathname; every actual show/hide below is pure CSS.
+
+   Covers two independent surfaces:
+
+   1) Watch page - "Up Next" / related videos
+      (ytd-watch-next-secondary-results-renderer). This single
+      component IS YouTube's recommendations list - it's the same DOM
+      node whether rendered as the right-hand sidebar (wide viewport)
+      or repositioned below the player via responsive CSS (narrow
+      viewport), so one selector covers both "sidebar" and "below the
+      watch page" placements. The in-player end-of-video suggestion
+      overlay (.ytp-ce-element / .ytp-endscreen-content) is hidden
+      alongside it, since it's the same kind of "next video" nudge.
+
+      Note: this targets the recommendations list itself rather than
+      its outer wrapper (#secondary), so the Transcript panel and Live
+      Chat - which render in that same right-rail column - keep
+      working normally when a user opens them. The trade-off is the
+      column may occasionally keep some reserved blank width where the
+      list used to be, since that width is allocated by YouTube's own
+      layout CSS rather than by this extension.
+
+   2) Home / Trending / Explore - recommended video cards. Scoped via
+      data-yfm-page rather than a page-structure selector, since these
+      feeds don't reliably share one container tag and trending/explore
+      have changed internal layout more than once. Hiding at the card
+      level (rather than a whole-grid wrapper) keeps this robust to
+      whichever of the renderer tags below a given layout actually
+      uses.
+
+      data-yfm-page="search" (Search Results) and "other" (Subscriptions,
+      channel pages, etc.) are deliberately NOT in this list, so those
+      surfaces are completely unaffected - and the Educational Filter
+      rule above (data-yfm-hidden) keeps working unchanged everywhere,
+      including on these now-untouched-by-this-feature pages.
+   =================================================================== */
+
+/* 1) Watch page - Up Next sidebar / related videos + endscreen cards. */
+html[data-yfm-mode="on"] ytd-watch-next-secondary-results-renderer,
+html[data-yfm-mode="on"] .ytp-ce-element,
+html[data-yfm-mode="on"] .ytp-endscreen-content {
+  display: none !important;
+}
+
+/* 2) Home / Trending / Explore - recommended video cards. */
+html[data-yfm-mode="on"]:is([data-yfm-page="home"], [data-yfm-page="trending"], [data-yfm-page="explore"])
+  :is(ytd-rich-item-renderer, ytd-video-renderer, ytd-grid-video-renderer) {
+  display: none !important;
+}

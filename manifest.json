@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "YouTube Focus Mode",
+  "version": "1.3.0",
+  "description": "Removes YouTube Shorts, hides non-educational videos, hides recommendations on Home/Trending/Explore/Watch pages, auto-skips the first 5 seconds of every video, and tracks your daily/weekly watch time. Includes an ON/OFF toggle.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "YouTube Focus Mode"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ]
+}
