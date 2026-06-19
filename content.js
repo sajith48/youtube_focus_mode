@@ -336,7 +336,7 @@
 
   /** True if the tab is the visible, focused one (i.e. not backgrounded). */
   function isTabActive() {
-    return document.visibilityState === 'visible' && document.hasFocus();
+    return document.visibilityState === 'visible';
   }
 
   /** True if `video` is actually advancing right now (not paused/ended/stalled). */
@@ -360,18 +360,55 @@
 
   /** Send elapsed watch time to background.js for persistence. */
   function sendElapsedTime(elapsedMs) {
-    if (!elapsedMs || elapsedMs <= 0) return;
-    try {
-      chrome.runtime.sendMessage({ type: TRACK_TIME_MESSAGE, elapsedMs }, () => {
-        // Touch lastError so a sleeping/restarting service worker
-        // never surfaces as an "Unchecked runtime.lastError" warning.
-        void chrome.runtime.lastError;
-      });
-    } catch (e) {
-      // Extension was reloaded/updated while this tab was still open.
-      // The next periodic tick or navigation will simply try again.
-    }
+
+  console.log(
+    "[YFM] Sending watch time:",
+    elapsedMs,
+    "ms"
+  );
+
+  if (!elapsedMs || elapsedMs <= 0) {
+    return;
   }
+
+  try {
+
+    chrome.runtime.sendMessage(
+      {
+        type: TRACK_TIME_MESSAGE,
+        elapsedMs
+      },
+
+      (response) => {
+
+        if (chrome.runtime.lastError) {
+
+          console.log(
+            "[YFM] Runtime error:",
+            chrome.runtime.lastError.message
+          );
+
+          return;
+        }
+
+        console.log(
+          "[YFM] Background acknowledged:",
+          response
+        );
+
+      }
+    );
+
+  } catch (e) {
+
+    console.log(
+      "[YFM] sendMessage failed:",
+      e
+    );
+
+  }
+
+}
 
   /** Re-evaluate, from current state, whether a segment should be running. */
   function refreshWatchTracking() {
