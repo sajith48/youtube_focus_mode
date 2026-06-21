@@ -147,6 +147,6 @@ This project is licensed under the MIT License.
 <img width="304" height="306" alt="popup" src="https://github.com/user-attachments/assets/3c9f763b-78bc-4161-8318-4e35c9c5755a" />
 
 
-### Home Page
+### Home Page (Screenshot 2026-06-21 123112.png)
 
 <img width="1365" height="644" alt="home" src="https://github.com/user-attachments/assets/08ba5815-1683-408c-8aa2-ea1abbebec19" />
