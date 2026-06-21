@@ -136,14 +136,14 @@ This project is licensed under the MIT License.
 ⭐ If you like this project, don't forget to star the repository!
 
 ---
-
- # YouTube Focus Mode Banner (Screenshot 2026-06-21 120445.png)
+![Banner](Screenshot 2026-06-21 123112.png)
 
 ## 📸 Screenshots
 
-### Popup UI (Screenshot 2026-06-21 123112.png)
+### Home Page
 
+![Home](Screenshot 2026-06-21 120445.png)
 
+### Popup
 
-### Home Page (Screenshot 2026-06-21 123112.png)
-
+![Popup](Screenshot 2026-06-21 120917.png)
