@@ -135,15 +135,17 @@ This project is licensed under the MIT License.
 
 ⭐ If you like this project, don't forget to star the repository!
 
-![YouTube Focus Mode Banner](screenshots/banner.png)
-<img width="467" height="464" alt="image" src="https://github.com/user-attachments/assets/2ac37bed-ef3b-42e8-8206-ae454887f686" />
+![YouTube Focus Mode Banner]
+(<img width="467" height="464" alt="image" src="https://github.com/user-attachments/assets/2ac37bed-ef3b-42e8-8206-ae454887f686" />)
 
 ## 📸 Screenshots
 
 ### Popup UI
 
-![Popup](screenshots/popup.png)
+![Popup](<img width="304" height="306" alt="popup" src="https://github.com/user-attachments/assets/3c9f763b-78bc-4161-8318-4e35c9c5755a" />
+)
 
 ### Home Page
 
-![Home](screenshots/home.png)
+![Home](<img width="1365" height="644" alt="home" src="https://github.com/user-attachments/assets/08ba5815-1683-408c-8aa2-ea1abbebec19" />
+)
